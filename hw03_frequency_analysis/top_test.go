@@ -67,6 +67,21 @@ func TestTop10(t *testing.T) {
 				"то",        // 4
 			},
 		},
+		{
+			"text contains only whitespaces",
+			"    \n   \n \t    \t\t   \n\n ",
+			[]string{},
+		},
+		{
+			"text contains less than 10 unique words",
+			"word0 word0 word1 word1 word1 word2 word3 word3",
+			[]string{
+				"word1", // 3
+				"word0", // 2
+				"word3", // 2
+				"word2", // 1
+			},
+		},
 	}
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
