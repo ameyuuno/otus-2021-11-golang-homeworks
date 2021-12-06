@@ -29,8 +29,8 @@ func Top10(text string) []string {
 		return wordStats[i].frequency > wordStats[j].frequency
 	})
 
-	top := make([]string, 0, 10)
 	topBound := int(math.Min(10, float64(len(wordStats))))
+	top := make([]string, 0, topBound)
 	for _, stat := range wordStats[:topBound] {
 		top = append(top, stat.word)
 	}
