@@ -13,14 +13,14 @@ type List interface {
 type ListItem struct {
 	Value interface{}
 	Next  *ListItem
-	Prev  *ListItem
 }
 
 type list struct {
-	List // Remove me after realization.
-	// Place your code here.
+	head   *ListItem
+	tail   *ListItem
+	length int
 }
 
 func NewList() List {
-	return new(list)
+	return &list{}
 }
