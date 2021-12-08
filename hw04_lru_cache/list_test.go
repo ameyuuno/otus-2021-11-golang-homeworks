@@ -15,6 +15,123 @@ func TestList(t *testing.T) {
 		require.Nil(t, l.Back())
 	})
 
+	t.Run("build list by appending to front", func(t *testing.T) {
+		l := NewList()
+
+		l.PushFront(3)
+		l.PushFront(2)
+		l.PushFront(1)
+
+		values := make([]int, 0, l.Len())
+		for node := l.Front(); node != nil; node = node.Next {
+			values = append(values, node.Value.(int))
+		}
+
+		require.Equal(t, []int{1, 2, 3}, values)
+	})
+
+	t.Run("build list by appending to back", func(t *testing.T) {
+		l := NewList()
+
+		l.PushBack(1)
+		l.PushBack(2)
+		l.PushBack(3)
+
+		values := make([]int, 0, l.Len())
+		for node := l.Front(); node != nil; node = node.Next {
+			values = append(values, node.Value.(int))
+		}
+
+		require.Equal(t, []int{1, 2, 3}, values)
+	})
+
+	t.Run("list consistency does not depend on traverse direction", func(t *testing.T) {
+		l := NewList()
+
+		l.PushBack(1)
+		l.PushBack(2)
+		l.PushBack(3)
+
+		valuesByFront := make([]int, 0, l.Len())
+		for node := l.Front(); node != nil; node = node.Next {
+			valuesByFront = append(valuesByFront, node.Value.(int))
+		}
+
+		valuesByBack := make([]int, 0, l.Len())
+		for node := l.Back(); node != nil; node = node.Prev {
+			valuesByBack = append([]int{node.Value.(int)}, valuesByBack...)
+		}
+
+		require.Equal(t, valuesByFront, valuesByBack)
+	})
+
+	t.Run("remove last one from list", func(t *testing.T) {
+		l := NewList()
+
+		l.PushBack(1)
+		nodeToRemove := l.Front()
+
+		l.Remove(nodeToRemove)
+
+		require.Equal(t, 0, l.Len())
+		require.Nil(t, l.Front())
+		require.Nil(t, l.Back())
+	})
+
+	t.Run("remove head", func(t *testing.T) {
+		l := NewList()
+
+		l.PushBack(1)
+		l.PushBack(2)
+		l.PushBack(3)
+		nodeToRemove := l.Front()
+
+		l.Remove(nodeToRemove)
+
+		values := make([]int, 0, l.Len())
+		for node := l.Front(); node != nil; node = node.Next {
+			values = append(values, node.Value.(int))
+		}
+
+		require.Equal(t, []int{2, 3}, values)
+	})
+
+	t.Run("remove middle", func(t *testing.T) {
+		l := NewList()
+
+		l.PushBack(1)
+		l.PushBack(2)
+		l.PushBack(3)
+		nodeToRemove := l.Front().Next
+
+		l.Remove(nodeToRemove)
+
+		values := make([]int, 0, l.Len())
+		for node := l.Front(); node != nil; node = node.Next {
+			values = append(values, node.Value.(int))
+		}
+
+		require.Equal(t, []int{1, 3}, values)
+	})
+
+	t.Run("remove tail", func(t *testing.T) {
+		l := NewList()
+
+		l.PushBack(1)
+		l.PushBack(2)
+		l.PushBack(3)
+		nodeToRemove := l.Back()
+
+		l.Remove(nodeToRemove)
+
+		values := make([]int, 0, l.Len())
+		for node := l.Front(); node != nil; node = node.Next {
+			values = append(values, node.Value.(int))
+		}
+
+		require.Equal(t, []int{1, 2}, values)
+	})
+
 	t.Run("complex", func(t *testing.T) {
 		l := NewList()
 
