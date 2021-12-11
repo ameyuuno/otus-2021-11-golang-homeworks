@@ -6,6 +6,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+//nolint:funlen // This function just contains a lot of tests.
 func TestList(t *testing.T) {
 	t.Run("empty list", func(t *testing.T) {
 		l := NewList()
