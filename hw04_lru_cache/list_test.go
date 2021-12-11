@@ -27,6 +27,7 @@ func TestList(t *testing.T) {
 			values = append(values, node.Value.(int))
 		}
 
+		require.Equal(t, 3, l.Len())
 		require.Equal(t, []int{1, 2, 3}, values)
 	})
 
@@ -42,6 +43,7 @@ func TestList(t *testing.T) {
 			values = append(values, node.Value.(int))
 		}
 
+		require.Equal(t, 3, l.Len())
 		require.Equal(t, []int{1, 2, 3}, values)
 	})
 
@@ -93,6 +95,7 @@ func TestList(t *testing.T) {
 			values = append(values, node.Value.(int))
 		}
 
+		require.Equal(t, 2, l.Len())
 		require.Equal(t, []int{2, 3}, values)
 	})
 
@@ -111,6 +114,7 @@ func TestList(t *testing.T) {
 			values = append(values, node.Value.(int))
 		}
 
+		require.Equal(t, 2, l.Len())
 		require.Equal(t, []int{1, 3}, values)
 	})
 
@@ -129,6 +133,7 @@ func TestList(t *testing.T) {
 			values = append(values, node.Value.(int))
 		}
 
+		require.Equal(t, 2, l.Len())
 		require.Equal(t, []int{1, 2}, values)
 	})
 
