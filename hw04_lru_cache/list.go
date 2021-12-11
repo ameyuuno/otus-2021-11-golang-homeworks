@@ -43,6 +43,8 @@ func (l *list) PushFront(v interface{}) *ListItem {
 
 	if l.length == 0 {
 		l.tail = node
+	} else {
+		l.head.Prev = node
 	}
 	l.head = node
 
@@ -91,17 +93,20 @@ func (l *list) Remove(i *ListItem) {
 
 func (l *list) MoveToFront(i *ListItem) {
 	switch {
-	case l.length == 1 || i == l.head:
+	case i == l.head:
 		return
 	case i == l.tail:
 		l.tail = l.tail.Prev
 		l.tail.Next = nil
-		i.Next = l.head
-		l.head = i
-		l.head.Prev = nil
 	default:
 		i.Prev.Next = i.Next
+		i.Next.Prev = i.Prev
 	}
+
+	i.Next = l.head
+	i.Prev = nil
+	l.head.Prev = i
+	l.head = i
 }
 
 func NewList() List {
