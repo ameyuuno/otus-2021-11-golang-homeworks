@@ -137,6 +137,60 @@ func TestList(t *testing.T) {
 		require.Equal(t, []int{1, 2}, values)
 	})
 
+	t.Run("move head to front", func(t *testing.T) {
+		l := NewList()
+
+		l.PushBack(1)
+		l.PushBack(2)
+		l.PushBack(3)
+
+		l.MoveToFront(l.Front())
+
+		values := make([]int, 0, l.Len())
+		for node := l.Front(); node != nil; node = node.Next {
+			values = append(values, node.Value.(int))
+		}
+
+		require.Equal(t, 3, l.Len())
+		require.Equal(t, []int{1, 2, 3}, values)
+	})
+
+	t.Run("move middle to front", func(t *testing.T) {
+		l := NewList()
+
+		l.PushBack(1)
+		l.PushBack(2)
+		l.PushBack(3)
+
+		l.MoveToFront(l.Front().Next)
+
+		values := make([]int, 0, l.Len())
+		for node := l.Front(); node != nil; node = node.Next {
+			values = append(values, node.Value.(int))
+		}
+
+		require.Equal(t, 3, l.Len())
+		require.Equal(t, []int{2, 1, 3}, values)
+	})
+
+	t.Run("move tail to front", func(t *testing.T) {
+		l := NewList()
+
+		l.PushBack(1)
+		l.PushBack(2)
+		l.PushBack(3)
+
+		l.MoveToFront(l.Back())
+
+		values := make([]int, 0, l.Len())
+		for node := l.Front(); node != nil; node = node.Next {
+			values = append(values, node.Value.(int))
+		}
+
+		require.Equal(t, 3, l.Len())
+		require.Equal(t, []int{3, 1, 2}, values)
+	})
+
 	t.Run("complex", func(t *testing.T) {
 		l := NewList()
 
